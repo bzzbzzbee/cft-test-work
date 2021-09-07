@@ -2,7 +2,7 @@ package com.example.cft_test_work.data.pojo
 
 import com.google.gson.annotations.SerializedName
 
-data class Currency(
+data class Valute(
     @field:SerializedName("CharCode")
     val charCode: String,
     @field:SerializedName("Value")
