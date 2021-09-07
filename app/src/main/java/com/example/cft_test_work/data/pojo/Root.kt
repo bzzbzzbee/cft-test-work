@@ -17,7 +17,7 @@ data class Root(
     val previousDate: String,
 
     @field:SerializedName("Valute")
-    val currencies: Map<String, Currency>
+    val currencies: Map<String, Valute>
 )
 
 
