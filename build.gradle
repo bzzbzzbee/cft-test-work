@@ -8,6 +8,7 @@ buildscript {
         roomVersion = '2.3.0'
         hiltVersion = '2.37'
         hiltCompilerVersion = '1.0.0'
+        lifecycleVersion = '2.2.0'
     }
     repositories {
         maven { url 'https://maven.google.com' }
