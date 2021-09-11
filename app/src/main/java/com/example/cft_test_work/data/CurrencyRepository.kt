@@ -3,6 +3,7 @@ package com.example.cft_test_work.data
 import android.util.Log
 import com.example.cft_test_work.api.CurrenciesApi
 import com.example.cft_test_work.data.entities.Currency
+import kotlinx.coroutines.runBlocking
 import java.io.IOException
 import javax.inject.Inject
 
@@ -46,5 +47,5 @@ class CurrencyRepository @Inject constructor(
 
     fun getCurrencies() = currencyDao.getAllCurrencies()
 
-    fun isDbEmpty() = currencyDao.getCurrenciesCount() <= 0
+    fun isDbEmpty() = runBlocking { currencyDao.getCurrenciesCount() <= 0 }
 }

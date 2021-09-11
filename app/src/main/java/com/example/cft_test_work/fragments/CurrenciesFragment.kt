@@ -12,11 +12,14 @@ import com.example.cft_test_work.data.entities.Currency
 import com.example.cft_test_work.databinding.CurrenciesScreenBinding
 import com.example.cft_test_work.ui.CurrenciesFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import android.R
+import android.os.Handler
+import android.os.Looper
 
 import android.text.Editable
 
 import android.text.TextWatcher
+import android.util.Log
+import android.widget.Toast
 import java.math.RoundingMode
 
 
@@ -29,6 +32,17 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var selectedCurrency: String = String()
     private val currenciesList: MutableList<Currency> = mutableListOf()
+
+    private val timerHandler: Handler = Handler(Looper.getMainLooper())
+    private val timerRunnable: Runnable by lazy {
+        object : Runnable {
+            override fun run() {
+                Log.e("Db updating", "updating")
+                viewModel.update()
+                timerHandler.postDelayed(this, 5000)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,10 +58,10 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         val adapter = ArrayAdapter(
             requireContext(),
-            R.layout.simple_spinner_item,
+            android.R.layout.simple_spinner_item,
             mutableListOf<String>()
         ).also {
-            it.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
 
         viewModel.getCurrencies().observe(viewLifecycleOwner, { currencies ->
@@ -77,6 +91,8 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.updateBtn.setOnClickListener {
             viewModel.update()
         }
+
+        timerHandler.postDelayed(timerRunnable, 0);
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -99,6 +115,11 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 .setScale(2, RoundingMode.HALF_EVEN)
                 .toString()
         } else ""
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timerHandler.removeCallbacks(timerRunnable);
     }
 
     override fun onDestroyView() {

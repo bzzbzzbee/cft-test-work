@@ -18,11 +18,11 @@ interface CurrencyDao {
     @Query("SELECT * FROM currencies")
     fun getAllCurrencies(): Flow<List<Currency>>
 
+    @Query("SELECT COUNT(*) FROM currencies")
+    suspend fun getCurrenciesCount(): Long
+
     @Update
     suspend fun updateCurrency(currency: Currency)
-
-    @Query("SELECT COUNT(*) FROM currencies")
-    fun getCurrenciesCount(): Long
 
     @Update
     suspend fun updateAllCurrencies(currencies: List<Currency>)
