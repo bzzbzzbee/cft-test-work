@@ -50,7 +50,7 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         viewModel.getCurrencies().observe(viewLifecycleOwner, { currencies ->
-            adapter.addAll(currencies.map { it.charCode })
+            adapter.addAll(currencies.extractCharCodeSorted())
             currenciesList.addAll(currencies)
         })
 
@@ -69,8 +69,7 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 s: CharSequence, start: Int,
                 before: Int, count: Int
             ) {
-                if (s.isNotEmpty())
-                    binding.resultText.text = calculate(s.toString().toInt()).toString()
+                binding.resultText.text = calculate(s)
             }
         })
     }
@@ -81,12 +80,14 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
-    private fun calculate(num: Int): Double {
-        val currency = currenciesList.find { it.charCode == selectedCurrency }
-        return (num * currency?.value!!) / currency.nominal
+    private fun calculate(num: CharSequence): String {
+        return if (num.isNotEmpty()) {
+            val number = num.toString().toInt()
+            val currency = currenciesList.find { it.charCode == selectedCurrency }
+            ((number * currency?.value!!) / currency.nominal).toString()
+        } else ""
     }
 
     override fun onDestroyView() {
@@ -94,3 +95,6 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding = null
     }
 }
+
+private fun List<Currency>.extractCharCodeSorted(): List<String> = map { it.charCode }.sorted()
+
