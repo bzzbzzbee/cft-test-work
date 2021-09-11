@@ -77,6 +77,8 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val charCode = parent?.getItemAtPosition(position).toString()
         selectedCurrency = charCode
+        binding.resultText.text = ""
+        binding.editTextNumberDecimal.text.clear()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
