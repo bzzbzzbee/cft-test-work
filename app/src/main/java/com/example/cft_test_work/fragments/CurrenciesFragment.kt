@@ -17,6 +17,7 @@ import android.R
 import android.text.Editable
 
 import android.text.TextWatcher
+import java.math.RoundingMode
 
 
 @AndroidEntryPoint
@@ -72,6 +73,10 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.resultText.text = calculate(s)
             }
         })
+
+        binding.updateBtn.setOnClickListener {
+            viewModel.update()
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -88,7 +93,11 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return if (num.isNotEmpty()) {
             val number = num.toString().toInt()
             val currency = currenciesList.find { it.charCode == selectedCurrency }
-            ((number * currency?.value!!) / currency.nominal).toString()
+
+            ((number * currency?.value!!) / currency.nominal)
+                .toBigDecimal()
+                .setScale(2, RoundingMode.HALF_EVEN)
+                .toString()
         } else ""
     }
 

@@ -13,8 +13,10 @@ import javax.inject.Inject
 class CurrenciesFragmentViewModel @Inject constructor(private val currencyRepository: CurrencyRepository) :
     ViewModel() {
     init {
-        viewModelScope.launch {
-            currencyRepository.initCurrencies()
+        if (currencyRepository.isDbEmpty()) {
+            viewModelScope.launch {
+                currencyRepository.initCurrencies()
+            }
         }
     }
 
@@ -25,5 +27,4 @@ class CurrenciesFragmentViewModel @Inject constructor(private val currencyReposi
     }
 
     fun getCurrencies() = currencyRepository.getCurrencies().asLiveData()
-    fun getCurrencyByCharCode(charCode: String) = currencyRepository.getCurrencyByCharCode(charCode)
 }
