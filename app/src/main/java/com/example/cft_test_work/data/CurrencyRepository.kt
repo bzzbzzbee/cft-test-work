@@ -45,4 +45,5 @@ class CurrencyRepository @Inject constructor(
     }
 
     fun getCurrencies() = currencyDao.getAllCurrencies()
+    fun getCurrencyByCharCode(charCode: String) = currencyDao.getCurrencyByCharCode(charCode)
 }

@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cft_test_work.data.CurrencyRepository
+import com.example.cft_test_work.data.entities.Currency
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CurrenciesFragmentViewModel @Inject constructor(private val currencyRepository: CurrencyRepository) : ViewModel() {
+class CurrenciesFragmentViewModel @Inject constructor(private val currencyRepository: CurrencyRepository) :
+    ViewModel() {
     init {
         viewModelScope.launch {
             currencyRepository.initCurrencies()
@@ -23,4 +25,5 @@ class CurrenciesFragmentViewModel @Inject constructor(private val currencyReposi
     }
 
     fun getCurrencies() = currencyRepository.getCurrencies().asLiveData()
+    fun getCurrencyByCharCode(charCode: String) = currencyRepository.getCurrencyByCharCode(charCode)
 }

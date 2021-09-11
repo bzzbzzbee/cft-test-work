@@ -22,4 +22,7 @@ interface CurrencyDao {
 
     @Update
     suspend fun updateAllCurrencies(currencies: List<Currency>)
+
+    @Query("SELECT * FROM currencies WHERE charCode IN (:charCode)")
+    fun getCurrencyByCharCode(charCode: String): Currency?
 }
