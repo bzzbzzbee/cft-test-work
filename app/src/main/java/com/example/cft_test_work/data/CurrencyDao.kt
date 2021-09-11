@@ -3,6 +3,7 @@ package com.example.cft_test_work.data
 import androidx.room.*
 import com.example.cft_test_work.data.entities.Currency
 import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface CurrencyDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -20,9 +21,9 @@ interface CurrencyDao {
     @Update
     suspend fun updateCurrency(currency: Currency)
 
+    @Query("SELECT COUNT(*) FROM currencies")
+    fun getCurrenciesCount(): Long
+
     @Update
     suspend fun updateAllCurrencies(currencies: List<Currency>)
-
-    @Query("SELECT * FROM currencies WHERE charCode IN (:charCode)")
-    fun getCurrencyByCharCode(charCode: String): Currency?
 }
