@@ -17,7 +17,7 @@ class ApiModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://www.cbr-xml-daily.ru/") //daily_json.js
+            .baseUrl("https://www.cbr-xml-daily.ru/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

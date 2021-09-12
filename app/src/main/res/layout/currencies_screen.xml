@@ -3,10 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/gray"
+    android:background="@color/app_bg_color"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:id="@+id/ratioTextView"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +25,15 @@
         android:orientation="horizontal">
 
         <Spinner
+            android:textAlignment="center"
+            android:spinnerMode="dialog"
             android:id="@+id/currenciesSpinner"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="50" />
 
         <EditText
+            android:textStyle="bold"
             android:id="@+id/editTextNumberDecimal"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -29,15 +41,19 @@
             android:inputType="numberDecimal" />
     </LinearLayout>
     <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
         android:id="@+id/resultText"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-    </TextView>
+        android:textSize="20sp"
+        android:layout_height="wrap_content"/>
 <Button
+    android:layout_marginTop="16dp"
     android:layout_gravity="center"
     android:id="@+id/updateBtn"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/black_btn"
     android:text="@string/update"/>
 </LinearLayout>
