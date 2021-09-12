@@ -98,7 +98,8 @@ class CurrenciesFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val charCode = parent?.getItemAtPosition(position).toString()
         selectedCurrency = charCode
         val currency = currenciesList.find { it.charCode == selectedCurrency }
-        val text = "Текущий курс ${currency?.name} к рублю: ${currency?.value!! / currency.nominal}"
+        val text = "Текущий курс ${currency?.name} к рублю: ${(currency?.value!! / currency.nominal).toBigDecimal()
+            .setScale(3, RoundingMode.HALF_EVEN)}"
         binding.ratioTextView.text = text
         binding.resultText.text = "0 ₽"
         binding.editTextNumberDecimal.text.clear()
