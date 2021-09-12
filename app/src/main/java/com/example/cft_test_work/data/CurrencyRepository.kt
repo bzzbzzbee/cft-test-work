@@ -11,6 +11,9 @@ class CurrencyRepository @Inject constructor(
     private val currencyDao: CurrencyDao,
     private val currenciesApi: CurrenciesApi
 ) {
+    val isDbEmpty
+        get() = runBlocking { currencyDao.getCurrenciesCount() <= 0 }
+
     suspend fun initCurrencies() {
         try {
             val response = currenciesApi.loadResponse("daily_json.js")
@@ -46,6 +49,4 @@ class CurrencyRepository @Inject constructor(
     }
 
     fun getCurrencies() = currencyDao.getAllCurrencies()
-
-    fun isDbEmpty() = runBlocking { currencyDao.getCurrenciesCount() <= 0 }
 }

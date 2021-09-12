@@ -13,7 +13,7 @@ import javax.inject.Inject
 class CurrenciesFragmentViewModel @Inject constructor(private val currencyRepository: CurrencyRepository) :
     ViewModel() {
     init {
-        if (currencyRepository.isDbEmpty()) {
+        if (currencyRepository.isDbEmpty) {
             viewModelScope.launch {
                 currencyRepository.initCurrencies()
             }

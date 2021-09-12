@@ -13,7 +13,7 @@ data class Currency(
     val charCode: String,
     val value: Double,
     val id: String,
-    val nominal: Int, //TODO don't forget to include calculations
+    val nominal: Int,
     val numCode: String,
     val name: String
 ) {
